@@ -103,7 +103,7 @@
 &trans                      &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9  &kp LEFT_PARENTHESIS                      &kp RIGHT_PARENTHESIS  &kp TILDE  &kp EXCL       &kp AT_SIGN   &kp PIPE
 &trans                      &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &kp LEFT_BRACKET      &trans      &trans  &kp RIGHT_BRACKET      &kp HASH   &kp DOLLAR     &kp PERCENT   &kp EQUAL
 &mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp LEFT_BRACE        &trans      &trans  &kp RIGHT_BRACE        &kp CARET  &kp AMPERSAND  &kp ASTERISK  &kp PLUS
-&trans                      &trans           &trans           &trans           &trans                &trans      &trans  &trans                                                         &trans
+&trans                      &trans           &trans           &kp LG(SPACE)    &trans                &trans      &trans  &trans                                                         &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOLUME_UP>;
@@ -111,10 +111,10 @@
 
         ARROW {
             bindings = <
-&trans   &trans           &trans       &trans            &trans                      &kp LG(LA(LEFT_ARROW))  &kp LG(LA(DOWN_ARROW))  &kp LG(LA(UP_ARROW))  &kp LG(LA(RIGHT_ARROW))  &trans
-&kp F12  &kp LG(LS(TAB))  &kp LG(TAB)  &kp LC(UP_ARROW)  &kp F3  &trans      &trans  &kp LEFT_ARROW          &kp DOWN_ARROW          &kp UP_ARROW          &kp RIGHT                &kp LA(LC(ENTER))
-&trans   &trans           &trans       &trans            &trans  &trans      &trans  &kp LA(LC(LEFT_ARROW))  &kp LA(LC(DOWN_ARROW))  &kp LC(LA(UP_ARROW))  &kp LA(LC(RIGHT))        &trans
-&trans   &trans           &trans       &trans            &trans  &trans      &trans  &trans                                                                                         &trans
+&kp LG(LA(ESCAPE))  &trans           &kp K_PLAY_PAUSE  &trans            &trans                      &kp LG(LA(LEFT_ARROW))  &kp LG(LA(DOWN_ARROW))  &kp LG(LA(UP_ARROW))  &kp LG(LA(RIGHT_ARROW))  &trans
+&kp F12             &kp LG(LS(TAB))  &kp LG(TAB)       &kp LC(UP_ARROW)  &kp F3  &trans      &trans  &kp LEFT_ARROW          &kp DOWN_ARROW          &kp UP_ARROW          &kp RIGHT                &kp LA(LC(ENTER))
+&trans              &trans           &trans            &trans            &trans  &trans      &trans  &kp LA(LC(LEFT_ARROW))  &kp LA(LC(DOWN_ARROW))  &kp LC(LA(UP_ARROW))  &kp LA(LC(RIGHT))        &trans
+&trans              &trans           &trans            &trans            &trans  &trans      &trans  &trans                                                                                         &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_BRIGHTNESS_DEC C_BRIGHTNESS_INC>;
