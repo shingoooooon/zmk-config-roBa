@@ -72,6 +72,20 @@
             bindings = <&to 0 &macro_param_1to1 &kp MACRO_PLACEHOLDER>;
             label = "TO_LAYER_0";
         };
+
+        mac_mode: mac_mode {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&bt BT_SEL 0 &to 0>;
+            label = "MAC_MODE";
+        };
+
+        win_mode: win_mode {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&bt BT_SEL 1 &to 4>;
+            label = "WIN_MODE";
+        };
     };
 
     behaviors {
@@ -96,7 +110,7 @@
 &kp LEFT_SHIFT      &kp LCTRL  &kp LEFT_ALT  &kp LEFT_GUI  &lt 1 SPACE  &lt_to_layer_0 3 TAB      &kp BACKSPACE  &lt 2 ENTER                             &mt RIGHT_GUI LG(LEFT_BRACKET)
             >;
 
-            sensor-bindings = <&inc_dec_kp PG_UP PAGE_DOWN>;
+            sensor-bindings = <&inc_dec_kp PAGE_UP PAGE_DOWN>;
         };
 
         NUM {
@@ -104,7 +118,7 @@
 &trans                      &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9  &kp LEFT_PARENTHESIS                      &kp RIGHT_PARENTHESIS  &kp TILDE  &kp EXCL       &kp AT_SIGN   &kp PIPE
 &trans                      &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &kp LEFT_BRACKET      &trans      &trans  &kp RIGHT_BRACKET      &kp HASH   &kp DOLLAR     &kp PERCENT   &kp EQUAL
 &mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp LEFT_BRACE        &trans      &trans  &kp RIGHT_BRACE        &kp CARET  &kp AMPERSAND  &kp ASTERISK  &kp PLUS
-&trans                      &trans           &trans           &kp LG(SPACE)    &trans                &trans      &trans  &trans                                                         &trans
+&trans                      &trans           &trans           &trans           &trans                &trans      &trans  &trans                                                         &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOLUME_UP>;
@@ -115,7 +129,7 @@
 &kp LG(LA(ESCAPE))  &trans     &kp C_PLAY_PAUSE  &kp LG(MINUS)     &kp LG(PLUS)                      &kp LG(LA(LEFT_ARROW))  &kp LG(LA(DOWN_ARROW))  &kp LG(LA(UP_ARROW))  &kp LG(LA(RIGHT_ARROW))  &trans
 &kp F12             &kp LG(L)  &trans            &kp LC(UP_ARROW)  &kp F3        &trans      &trans  &kp LEFT_ARROW          &kp DOWN_ARROW          &kp UP_ARROW          &kp RIGHT                &kp LA(LC(ENTER))
 &trans              &trans     &trans            &trans            &trans        &trans      &trans  &kp LA(LC(LEFT_ARROW))  &kp LA(LC(DOWN_ARROW))  &kp LC(LA(UP_ARROW))  &kp LA(LC(RIGHT))        &trans
-&trans              &trans     &trans            &trans            &trans        &trans      &trans  &trans                                                                                         &trans
+&trans              &trans     &trans            &kp LG(SPACE)     &trans        &trans      &trans  &none                                                                                          &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_BRIGHTNESS_DEC C_BRIGHTNESS_INC>;
@@ -123,11 +137,44 @@
 
         Bluetooth {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                       &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
-&trans  &trans  &trans  &trans  &trans  &trans      &kp F13  &kp F6        &kp F7        &kp F8        &kp F9        &kp F10
-&trans  &trans  &trans  &trans  &trans  &trans      &trans   &trans        &trans        &trans        &trans        &kp F11
-&trans  &trans  &trans  &trans  &trans  &trans      &trans   &trans                                                  &kp F12
+&trans  &trans  &trans  &trans  &trans                      &mac_mode  &win_mode  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans     &trans     &trans        &trans        &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans     &trans     &trans        &trans        &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                            &trans
             >;
+        };
+
+        Win_default {
+            bindings = <
+&mt ESC Q         &kp W         &kp E         &kp R             &kp T                                      &kp Y        &kp U  &kp I      &kp O       &kp P
+&kp A             &kp S         &kp D         &kp F             &kp G        &kp F10        &kp SEMICOLON  &kp H        &kp J  &kp K      &kp L       &kp MINUS
+&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V             &kp B        &trans         &kp SQT        &kp N        &kp M  &kp COMMA  &kp PERIOD  &kp SLASH
+&kp LEFT_SHIFT    &kp LEFT_WIN  &kp LEFT_ALT  &kp LEFT_CONTROL  &lt 5 SPACE  &lt 3 TAB      &kp BACKSPACE  &lt 6 ENTER                                &kp LA(LEFT_ARROW)
+            >;
+
+            sensor-bindings = <&inc_dec_kp PAGE_UP PAGE_DOWN>;
+        };
+
+        layer_5 {
+            bindings = <
+&trans           &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9  &kp LEFT_PARENTHESIS                      &kp RIGHT_PARENTHESIS  &kp TILDE  &kp EXCLAMATION  &kp AT        &kp PIPE
+&trans           &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &kp LEFT_BRACKET      &trans      &trans  &kp RIGHT_BRACKET      &kp HASH   &kp DOLLAR       &kp PERCENT   &kp EQUAL
+&kp KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp LEFT_BRACE        &trans      &trans  &kp RIGHT_BRACE        &kp CARET  &kp AMPERSAND    &kp ASTERISK  &kp PLUS
+&trans           &trans           &trans           &trans           &trans                &trans      &trans  &trans                                                           &trans
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
+        };
+
+        layer_6 {
+            bindings = <
+&trans  &trans  &trans  &kp LC(MINUS)         &kp LC(PLUS)                      &kp LA(LC(LEFT_ARROW))  &kp LA(LC(DOWN_ARROW))  &kp LA(LC(UP_ARROW))  &kp LC(LA(RIGHT_ARROW))  &trans
+&trans  &trans  &trans  &kp LA(TAB)           &trans        &trans      &trans  &kp LEFT_ARROW          &kp DOWN_ARROW          &kp UP_ARROW          &kp RIGHT_ARROW          &trans
+&trans  &trans  &trans  &trans                &trans        &trans      &trans  &trans                  &trans                  &trans                &trans                   &trans
+&trans  &trans  &trans  &kp LA(SINGLE_QUOTE)  &trans        &trans      &trans  &trans                                                                                         &trans
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_BRIGHTNESS_DEC C_BRI_INC>;
         };
     };
 };
