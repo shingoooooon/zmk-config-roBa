@@ -168,10 +168,10 @@
 
         layer_6 {
             bindings = <
-&trans  &trans  &trans  &kp LC(MINUS)  &kp LC(PLUS)                      &kp LA(LC(LEFT_ARROW))  &kp LA(LC(DOWN_ARROW))  &kp LA(LC(UP_ARROW))  &kp LC(LA(RIGHT_ARROW))  &trans
-&trans  &trans  &trans  &kp LA(TAB)    &trans        &trans      &trans  &kp LEFT_ARROW          &kp DOWN_ARROW          &kp UP_ARROW          &kp RIGHT_ARROW          &trans
-&trans  &trans  &trans  &trans         &trans        &trans      &trans  &trans                  &trans                  &trans                &trans                   &trans
-&trans  &trans  &trans  &kp LANG5      &trans        &trans      &trans  &trans                                                                                         &trans
+&trans  &trans  &trans  &kp LC(MINUS)   &kp LC(PLUS)                                    &kp LA(LC(LEFT_ARROW))  &kp LA(LC(DOWN_ARROW))  &kp LA(LC(UP_ARROW))  &kp LC(LA(RIGHT_ARROW))  &trans
+&trans  &trans  &trans  &kp LA(TAB)     &trans                   &trans         &trans  &kp LEFT_ARROW          &kp DOWN_ARROW          &kp UP_ARROW          &kp RIGHT_ARROW          &trans
+&trans  &trans  &trans  &trans          &trans                   &trans         &trans  &trans                  &trans                  &trans                &trans                   &trans
+&trans  &trans  &trans  &kp LANGUAGE_5  &kp LANG_ZENKAKUHANKAKU  &kp LANG5      &trans  &trans                                                                                         &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_BRIGHTNESS_DEC C_BRI_INC>;
