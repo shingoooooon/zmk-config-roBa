@@ -72,14 +72,20 @@
         // 同時に送られ、Windows側が矢印キーを先に処理して素の左矢印に
         // なってしまうことがある。Altを先に送る3段階に分けて回避する。
         // BLE経由でレポートが並び替わらないよう 30ms 確保している。
+
         alt_left: alt_left {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <30>;
             tap-ms = <30>;
-            bindings = <&macro_press &kp LALT>
-                     , <&macro_tap &kp LEFT_ARROW>
-                     , <&macro_release &kp LALT>;
+            bindings =
+                <&macro_press>,
+                <&kp LALT>,
+                <&macro_tap>,
+                <&kp LEFT_ARROW>,
+                <&macro_release>,
+                <&kp LALT>;
+
             label = "ALT_LEFT";
         };
     };
@@ -155,10 +161,10 @@
 
         layer_6 {
             bindings = <
-&trans  &trans  &trans  &kp LC(MINUS)                &kp LC(PLUS)                                   &kp LA(LC(LEFT_ARROW))  &kp LA(LC(DOWN_ARROW))  &kp LA(LC(UP_ARROW))  &kp LC(LA(RIGHT_ARROW))  &trans
-&trans  &trans  &trans  &kp LA(TAB)                  &trans              &trans             &trans  &kp LEFT_ARROW          &kp DOWN_ARROW          &kp UP_ARROW          &kp RIGHT_ARROW          &trans
-&trans  &trans  &trans  &trans                       &trans              &trans             &trans  &trans                  &trans                  &trans                &trans                   &trans
-&trans  &trans  &trans  &kp GRAVE                    &trans              &trans             &trans  &trans                                                                                         &trans
+&trans  &trans  &trans  &kp LC(MINUS)  &kp LC(PLUS)                      &trans          &kp LC(LS(TAB))  &kp LC(TAB)   &trans           &trans
+&trans  &trans  &trans  &kp LA(TAB)    &trans        &trans      &trans  &kp LEFT_ARROW  &kp DOWN_ARROW   &kp UP_ARROW  &kp RIGHT_ARROW  &trans
+&trans  &trans  &trans  &trans         &trans        &trans      &trans  &trans          &trans           &trans        &trans           &trans
+&trans  &trans  &trans  &kp GRAVE      &trans        &trans      &trans  &trans                                                          &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_BRIGHTNESS_DEC C_BRI_INC>;
