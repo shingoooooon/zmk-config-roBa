@@ -10,12 +10,12 @@
 
 &trackball {
     // automouse-layer は無効化(ドライバの default -1 = 機能OFF)。
-    // 以前は <4> = Win_default を指しており、&to 4 で切り替えた直後に
-    // トラックボールのタイムアウト処理が同じレイヤー4を無効化してしまい、
-    // win_mode / win_mode_2 が layer 0 に戻る原因になっていた。
-    // layer 1 = Mac側のNUM、layer 5 = Win側のNUM。両方でスクロールできるようにする。
+    // 以前は Win_default レイヤーを指しており、win_mode で切り替えた直後に
+    // トラックボールのタイムアウト処理が同じレイヤーを無効化してしまい、
+    // layer 0 に戻ってしまう原因になっていた。
 
-    scroll-layers = <1 5>;
+    // layer 1 = Mac側のNUM、layer 4 = Win側のNUM。両方でスクロールできるようにする。
+    scroll-layers = <1 4>;
 
     // arrows {
     //     layers = <3>;
@@ -56,14 +56,14 @@
         win_mode: win_mode {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&bt BT_SEL 1 &to 4>;
+            bindings = <&bt BT_SEL 1 &to 3>;
             label = "WIN_MODE";
         };
 
         win_mode_2: win_mode_2 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&bt BT_SEL 2 &to 4>;
+            bindings = <&bt BT_SEL 2 &to 3>;
             label = "WIN_MODE_2";
         };
 
@@ -98,7 +98,7 @@
 &mt ESCAPE Q        &kp W      &kp E         &kp R         &kp T                                                 &kp Y        &kp U  &kp I      &kp O    &kp P
 &mt LEFT_CONTROL A  &kp S      &kp D         &kp F         &kp G        &kp LS(LG(NUMBER_4))      &kp SEMICOLON  &kp H        &kp J  &kp K      &kp L    &kp MINUS
 &mt LEFT_SHIFT Z    &kp X      &kp C         &kp V         &kp B        &kp RIGHT_GUI             &kp SQT        &kp N        &kp M  &kp COMMA  &kp DOT  &kp SLASH
-&kp LEFT_SHIFT      &kp LCTRL  &kp LEFT_ALT  &kp LEFT_GUI  &lt 1 SPACE  &lt 3 TAB                 &kp BACKSPACE  &lt 2 ENTER                             &mt RIGHT_GUI LG(LEFT_BRACKET)
+&kp LEFT_SHIFT      &kp LCTRL  &kp LEFT_ALT  &kp LEFT_GUI  &lt 1 SPACE  &lt 6 TAB                 &kp BACKSPACE  &lt 2 ENTER                             &mt RIGHT_GUI LG(LEFT_BRACKET)
             >;
 
             sensor-bindings = <&inc_dec_kp PAGE_UP PAGE_DOWN>;
@@ -126,6 +126,58 @@
             sensor-bindings = <&inc_dec_kp C_BRIGHTNESS_DEC C_BRIGHTNESS_INC>;
         };
 
+
+        Win_default {
+            bindings = <
+&mt ESC Q         &kp W         &kp E         &kp R             &kp T                                          &kp Y        &kp U  &kp I      &kp O       &kp P
+&kp A             &kp S         &kp D         &kp F             &kp G        &kp LC(LS(S))      &kp SEMICOLON  &kp H        &kp J  &kp K      &kp L       &kp MINUS
+&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V             &kp B        &trans             &kp LS(N7)     &kp N        &kp M  &kp COMMA  &kp PERIOD  &kp SLASH
+&kp LEFT_SHIFT    &kp LEFT_WIN  &kp LEFT_ALT  &kp LEFT_CONTROL  &lt 4 SPACE  &lt 6 TAB          &kp BACKSPACE  &lt 5 ENTER                                &alt_left
+            >;
+
+            sensor-bindings = <&inc_dec_kp PAGE_UP PAGE_DOWN>;
+        };
+
+        // Windows 側の数字・記号レイヤー。
+        // Windows のキーボードレイアウトが日本語(106/109)のため、ZMK が送る
+        // US配列のスキャンコードは JIS として解釈される。見た目のキーコード名と
+        // 実際に出る文字が一致しないので、下記の対応で「出したい文字」から
+        // 逆算した名前を指定している(コメントの文字が実際に出るもの)。
+        //
+        //   LS(N2)=" LS(N6)=& LS(N7)=' LS(N8)=( LS(N9)=)
+        //   EQUAL=^ LS(EQUAL)=~ LS(MINUS)==
+        //   LEFT_BRACKET=@ LS(LEFT_BRACKET)=`
+        //   RIGHT_BRACKET=[ LS(RIGHT_BRACKET)={
+        //   BACKSLASH=] LS(BACKSLASH)=}
+        //   SEMICOLON=; LS(SEMICOLON)=+  SQT=: LS(SQT)=*
+        //   INT_YEN=¥ LS(INT_YEN)=|  INT_RO=\ LS(INT_RO)=_
+        //   数字と ! # $ % , . / - は US と同じ
+        //
+        // 数字は KP_NUMBER_* (テンキー) から N* (数字段) に変更。
+        // テンキーは Windows で NumLock が OFF だとカーソル移動になり
+        // 数字が打てないため。
+        layer_5 {
+            bindings = <
+&trans      &kp N7  &kp N8  &kp N9  &kp LS(N8)                            &kp LS(N9)            &kp LS(EQUAL)  &kp LS(N1)  &kp LEFT_BRACKET  &kp LS(INT_YEN)
+&trans      &kp N4  &kp N5  &kp N6  &kp RIGHT_BRACKET      &trans  &trans  &kp BACKSLASH         &kp LS(N3)     &kp LS(N4)  &kp LS(N5)        &kp LS(MINUS)
+&kp N0      &kp N1  &kp N2  &kp N3  &kp LS(RIGHT_BRACKET)  &trans  &trans  &kp LS(BACKSLASH)     &kp EQUAL      &kp LS(N6)  &kp LS(SQT)       &kp LS(SEMICOLON)
+&trans      &trans  &trans  &trans  &trans                 &trans  &trans  &trans                                                             &trans
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
+        };
+
+        layer_6 {
+            bindings = <
+&trans  &trans  &trans  &kp LC(MINUS)  &kp LC(LS(SEMICOLON))             &trans          &kp LC(LS(TAB))  &kp LC(TAB)   &trans           &trans
+&trans  &trans  &trans  &kp LA(TAB)    &trans        &trans      &trans  &kp LEFT_ARROW  &kp DOWN_ARROW   &kp UP_ARROW  &kp RIGHT_ARROW  &trans
+&trans  &trans  &trans  &trans         &trans        &trans      &trans  &trans          &trans           &trans        &trans           &trans
+&trans  &trans  &trans  &kp GRAVE      &trans        &trans      &trans  &trans                                                          &trans
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_BRIGHTNESS_DEC C_BRI_INC>;
+        };
+
         Bluetooth {
             bindings = <
 &trans  &trans  &trans  &trans  &trans                      &mac_mode  &win_mode  &win_mode_2  &bt BT_SEL 3  &bt BT_SEL 4
@@ -137,37 +189,5 @@
             sensor-bindings = <&inc_dec_kp C_AC_ZOOM_IN C_AC_ZOOM_OUT>;
         };
 
-        Win_default {
-            bindings = <
-&mt ESC Q         &kp W         &kp E         &kp R             &kp T                                          &kp Y        &kp U  &kp I      &kp O       &kp P
-&kp A             &kp S         &kp D         &kp F             &kp G        &kp LC(LS(S))      &kp SEMICOLON  &kp H        &kp J  &kp K      &kp L       &kp MINUS
-&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V             &kp B        &trans             &kp SQT        &kp N        &kp M  &kp COMMA  &kp PERIOD  &kp SLASH
-&kp LEFT_SHIFT    &kp LEFT_WIN  &kp LEFT_ALT  &kp LEFT_CONTROL  &lt 5 SPACE  &lt 3 TAB          &kp BACKSPACE  &lt 6 ENTER                                &alt_left
-            >;
-
-            sensor-bindings = <&inc_dec_kp PAGE_UP PAGE_DOWN>;
-        };
-
-        layer_5 {
-            bindings = <
-&trans           &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9  &kp LEFT_PARENTHESIS                      &kp RIGHT_PARENTHESIS  &kp TILDE  &kp EXCLAMATION  &kp AT        &kp PIPE
-&trans           &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &kp LEFT_BRACKET      &trans      &trans  &kp RIGHT_BRACKET      &kp HASH   &kp DOLLAR       &kp PERCENT   &kp EQUAL
-&kp KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp LEFT_BRACE        &trans      &trans  &kp RIGHT_BRACE        &kp CARET  &kp AMPERSAND    &kp ASTERISK  &kp PLUS
-&trans           &trans           &trans           &trans           &trans                &trans      &trans  &trans                                                           &trans
-            >;
-
-            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
-        };
-
-        layer_6 {
-            bindings = <
-&trans  &trans  &trans  &kp LC(MINUS)  &kp LC(PLUS)                      &trans          &kp LC(LS(TAB))  &kp LC(TAB)   &trans           &trans
-&trans  &trans  &trans  &kp LA(TAB)    &trans        &trans      &trans  &kp LEFT_ARROW  &kp DOWN_ARROW   &kp UP_ARROW  &kp RIGHT_ARROW  &trans
-&trans  &trans  &trans  &trans         &trans        &trans      &trans  &trans          &trans           &trans        &trans           &trans
-&trans  &trans  &trans  &kp GRAVE      &trans        &trans      &trans  &trans                                                          &trans
-            >;
-
-            sensor-bindings = <&inc_dec_kp C_BRIGHTNESS_DEC C_BRI_INC>;
-        };
     };
 };
