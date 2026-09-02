@@ -60,10 +60,10 @@
             label = "WIN_MODE";
         };
 
-        win_mode_2: win_mode_2 {
+        mac_mode_2: win_mode_2 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&bt BT_SEL 2 &to 3>;
+            bindings = <&bt BT_SEL 2 &to 0>;
             label = "WIN_MODE_2";
         };
 
@@ -87,6 +87,13 @@
                 <&kp LALT>;
 
             label = "ALT_LEFT";
+        };
+
+        win_mode_2: win_mode_2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&bt BT_SEL 3 &to 3>;
+            label = "WIN_MODE_2";
         };
     };
 
@@ -180,10 +187,10 @@
 
         Bluetooth {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                      &mac_mode  &win_mode  &win_mode_2  &bt BT_SEL 3  &bt BT_SEL 4
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans     &trans     &trans       &trans        &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans     &trans     &trans       &trans        &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                           &trans
+&trans  &trans  &trans  &trans  &trans                      &mac_mode  &win_mode  &mac_mode_2  &win_mode_2  &bt BT_SEL 4
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans     &trans     &trans       &trans       &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans     &trans     &trans       &trans       &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                          &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_AC_ZOOM_IN C_AC_ZOOM_OUT>;
